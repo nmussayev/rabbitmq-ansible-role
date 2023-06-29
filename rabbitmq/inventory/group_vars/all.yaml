@@ -1,0 +1,26 @@
+# Dns resolution create in /etc/hosts
+rabbitmq_nodes_local_resolve: true
+
+# Erlang and Rabbitmq packages
+erlang_package_url: https://packages.erlang-solutions.com/erlang/debian/pool/esl-erlang_22.3.4.9-1~ubuntu~focal_amd64.deb
+erlang_package_name: erlang.deb
+rabbitmq_package_url: https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.9/rabbitmq-server_3.8.9-1_all.deb
+rabbitmq_package_name: rabbitmq.deb
+
+# Rabbitmq plugins
+rabbitmq_plugin_dir: /usr/lib/rabbitmq/lib/rabbitmq_server-3.8.9/plugins
+rabbitmq_community_plugins_package_urls:
+  - https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases/download/v3.8.0/rabbitmq_delayed_message_exchange-3.8.0.ez
+rabbitmq_builtin_enabled_plugins:
+  - rabbitmq_auth_backend_ldap
+  - rabbitmq_management
+  - rabbitmq_management_agent
+  - rabbitmq_peer_discovery_common
+  - rabbitmq_prometheus
+  - rabbitmq_shovel
+  - rabbitmq_shovel_management
+  - rabbitmq_stomp
+  - rabbitmq_web_dispatch
+  - rabbitmq_delayed_message_exchange
+
+

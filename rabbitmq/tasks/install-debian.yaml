@@ -1,0 +1,24 @@
+---
+- name: Download erlang package
+  get_url:
+    url: "{{ erlang_package_url }}"
+    dest: "/tmp/{{erlang_package_name}}"
+    mode: 0755
+
+- name: Install erlang package
+  become: true
+  ansible.builtin.apt:
+    deb: "/tmp/{{erlang_package_name}}"
+    update_cache: yes
+
+- name: Download rabbitmq package
+  get_url:
+    url: "{{ rabbitmq_package_url }}"
+    dest: "/tmp/{{ rabbitmq_package_name }}"
+    mode: 0755
+
+- name: Install rabbitmq package
+  become: true
+  ansible.builtin.apt:
+    deb: "/tmp/{{ rabbitmq_package_name }}"
+    update_cache: yes

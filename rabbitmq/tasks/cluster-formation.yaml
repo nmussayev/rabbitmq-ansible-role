@@ -1,0 +1,16 @@
+- name: make sure rabbitmq server is up
+  service:
+    name: rabbitmq-server
+    state: started
+
+- name: Rabbitmq stop_app on slave nodes
+  command: rabbitmqctl stop_app
+  when: inventory_hostname in groups['slave_nodes']
+
+- name: Rabbitmq reset on slave nodes
+  command: rabbitmqctl reset
+  when: inventory_hostname in groups['slave_nodes']
+
+- name: Rabbitmq start_app on slave nodes
+  command: rabbitmqctl start_app
+  when: inventory_hostname in groups['slave_nodes']

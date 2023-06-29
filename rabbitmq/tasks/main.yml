@@ -1,0 +1,15 @@
+---
+# If rabbitmq nodes don't dns resolve each othe
+- name: Config OS
+  ansible.builtin.import_tasks: config-os.yaml
+  when: "{{ rabbitmq_nodes_local_resolve }}"
+
+- name: Install Rabbitmq (Debian)
+  ansible.builtin.import_tasks: install-debian.yaml
+  when: ansible_os_family == 'Debian'
+
+- name: Config rabbitmq
+  ansible.builtin.import_tasks: config-rabbitmq.yaml
+
+- name: Rabbitmq cluster formation
+  ansible.builtin.import_tasks: cluster-formation.yaml

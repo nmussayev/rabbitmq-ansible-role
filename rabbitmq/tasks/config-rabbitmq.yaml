@@ -1,0 +1,28 @@
+# Config rabbitmq plugins
+- include_tasks: config-rabbitmq-plugins.yaml
+
+
+# Configure RabbitMQ for cluster
+- name: backup old erlang cookie
+  shell: cp -a /var/lib/rabbitmq/.erlang.cookie /var/lib/rabbitmq/.erlang.cookie.old
+  changed_when: false
+
+- name: updating rabbitmq erlang cookie
+  template:
+    src: erlang.cookie.j2
+    dest: /var/lib/rabbitmq/.erlang.cookie
+    owner: rabbitmq
+    group: rabbitmq
+    mode: 0400
+  notify:
+    restart rabbitmq-server
+
+- name: Create config file
+  template:
+    src: rabbitmq.conf.j2
+    dest: /etc/rabbitmq/rabbitmq.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    restart rabbitmq-server

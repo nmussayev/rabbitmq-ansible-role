@@ -1,0 +1,15 @@
+- name: Download rabbitmq community plugins
+  become: true
+  get_url:
+    url: "{{ item }}"
+    dest: "{{ rabbitmq_plugin_dir }}"
+  loop: "{{ rabbitmq_community_plugins_package_urls }}"
+
+- name: Enable rabbitmq plugins
+  become: true
+  community.rabbitmq.rabbitmq_plugin:
+    names: "{{ item }}"
+    state: enabled
+    new_only: true
+  loop: "{{ rabbitmq_builtin_enabled_plugins }}"
+  notify:  restart rabbitmq-server
